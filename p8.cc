@@ -7,9 +7,10 @@
 using namespace ns3; 
 int main(int argc, char *argv[]) 
 { 
+ 
 NodeContainer nodes; 
 nodes.Create(2); 
-
+ 
 PointToPointHelper p2p; 
 p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps")); 
 p2p.SetChannelAttribute("Delay", StringValue("2ms")); 
@@ -23,7 +24,7 @@ Ipv4AddressHelper address;
 address.SetBase("10.1.1.0", "255.255.255.0"); 
 Ipv4InterfaceContainer interfaces; 
 interfaces = address.Assign(devices); 
-
+ 
 uint16_t port = 5000; 
 PacketSinkHelper server( 
 "ns3::TcpSocketFactory", 
@@ -32,7 +33,7 @@ ApplicationContainer serverApp;
 serverApp = server.Install(nodes.Get(1)); 
 serverApp.Start(Seconds(1.0)); 
 serverApp.Stop(Seconds(10.0)); 
-
+ 
 BulkSendHelper client( 
 "ns3::TcpSocketFactory", 
 InetSocketAddress(interfaces.GetAddress(1), port)); 
